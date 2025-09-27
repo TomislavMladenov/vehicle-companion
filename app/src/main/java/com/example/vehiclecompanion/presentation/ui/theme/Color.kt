@@ -1,4 +1,4 @@
-package com.example.vehiclecompanion.ui.theme
+package com.example.vehiclecompanion.presentation.ui.theme
 
 import androidx.compose.ui.graphics.Color
 
