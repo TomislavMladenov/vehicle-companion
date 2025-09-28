@@ -11,7 +11,7 @@ import kotlin.uuid.Uuid.Companion.random
 data class ModelMenuOptions(
     override val titleResId: TextResource,
     override val checked: Boolean = false,
-    override val enabled: Boolean = true
+    override val enabled: Boolean = true,
 ) : MenuOption {
     override val uuid: String = random().toString()
 }

@@ -17,7 +17,7 @@ import androidx.compose.ui.graphics.Color
 import androidx.navigation.NavController
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.currentBackStackEntryAsState
-import com.example.vehiclecompanion.presentation.navigation.Profile
+import com.example.vehiclecompanion.presentation.navigation.VehicleCompanionDestination
 
 @Composable
 fun VehicleAppTopbar(
@@ -49,5 +49,5 @@ fun VehicleAppTopbar(
 fun isDetails(navController: NavController): Boolean {
     val navBackStackEntry by navController.currentBackStackEntryAsState()
     val currentDest = navBackStackEntry?.destination?.route ?: ""
-    return currentDest == Profile.VehicleDetails().route
+    return currentDest == VehicleCompanionDestination.VehicleDetails().route
 }

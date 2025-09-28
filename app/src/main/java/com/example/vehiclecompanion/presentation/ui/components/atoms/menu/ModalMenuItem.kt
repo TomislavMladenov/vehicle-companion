@@ -13,6 +13,8 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import com.example.vehiclecompanion.presentation.ui.model.TextResource
 import com.example.vehiclecompanion.presentation.ui.model.textResource
+import com.example.vehiclecompanion.presentation.ui.theme.Pink80
+import com.example.vehiclecompanion.presentation.ui.theme.Purple40
 
 @Composable
 fun ModalMenuItem(
@@ -23,7 +25,7 @@ fun ModalMenuItem(
 ) {
     val contentColor = when {
         !enabled -> MaterialTheme.colorScheme.onSurface.copy(alpha = .6f)
-        selected -> MaterialTheme.colorScheme.primary.copy(alpha = 1f)
+        selected -> Pink80.copy(alpha = 1f)
         else -> MaterialTheme.colorScheme.onSurface.copy(alpha = 1f)
     }
 

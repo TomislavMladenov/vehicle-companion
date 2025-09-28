@@ -9,6 +9,8 @@ interface VehicleDetailsAction {
     data class OnSelectModel(val modelOption: MenuOption): VehicleDetailsAction
     data class OnSelectFuelType(val typeOption: MenuOption): VehicleDetailsAction
     data class OnVINValueChange(val vin: String): VehicleDetailsAction
+
+    data object OnSave : VehicleDetailsAction
 }
 
 

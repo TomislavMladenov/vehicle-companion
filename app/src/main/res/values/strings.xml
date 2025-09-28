@@ -2,4 +2,9 @@
     <string name="app_name">Vehicle Companion</string>
 
     <string name="tv_fuel_type_label">Fuel type</string>
+    <string name="tv_year_label">Year</string>
+    <string name="tv_brand_label">Make</string>
+    <string name="tv_model_label">Model</string>
+
+    <string name="tv_save">Save</string>
 </resources>

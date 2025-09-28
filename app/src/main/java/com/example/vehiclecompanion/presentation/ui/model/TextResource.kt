@@ -14,3 +14,10 @@ fun textResource(resource: TextResource): String = when (resource) {
     is DynamicString -> resource.text
     is ResourceString -> stringResource(resource.resource)
 }
+
+@Composable
+fun textResourceOrEmpty(resource: TextResource?): String = when (resource) {
+    is DynamicString -> resource.text
+    is ResourceString -> stringResource(resource.resource)
+    else -> ""
+}

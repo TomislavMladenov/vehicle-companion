@@ -9,6 +9,14 @@ import com.example.vehiclecompanion.presentation.ui.model.VehicleBrandOption
 import kotlin.uuid.ExperimentalUuidApi
 import kotlin.uuid.Uuid.Companion.random
 
+val supportedBrands = listOf(
+    VehicleBrandOption.Audi,
+    VehicleBrandOption.BMW,
+    VehicleBrandOption.LandRover,
+    VehicleBrandOption.Chrysler,
+    VehicleBrandOption.Ford
+)
+
 data class BrandMenuOption(
     override val titleResId: TextResource,
     override val checked: Boolean = false,

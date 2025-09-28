@@ -30,14 +30,6 @@ fun BasicModalMenuOptions(
     label: String,
     items: List<MenuOption>,
     onItemSelected: (item: MenuOption) -> Unit,
-    drawItem: @Composable (MenuOption, Boolean, Boolean, () -> Unit) -> Unit = { item, selected, itemEnabled, onClick ->
-        ModalMenuItem(
-            text = item.titleResId,
-            selected = selected,
-            enabled = itemEnabled,
-            onClick = onClick,
-        )
-    },
 ) {
     var expanded by remember { mutableStateOf(false) }
 
@@ -63,7 +55,14 @@ fun BasicModalMenuOptions(
                     expanded = false
                     onItemSelected(item)
                 },
-                drawItem = drawItem
+                drawItem = { item, selected, itemEnabled, onClick ->
+                    ModalMenuItem(
+                        text = item.titleResId,
+                        selected = selected,
+                        enabled = itemEnabled,
+                        onClick = onClick,
+                    )
+                },
             )
         }
     }

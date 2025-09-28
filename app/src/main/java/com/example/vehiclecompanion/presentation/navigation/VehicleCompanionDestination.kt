@@ -9,13 +9,36 @@ sealed class VehicleCompanionDestination(
     open val destination: String,
     open val args: Map<String, String> = emptyMap()
 ) {
-    val arguments: List<NamedNavArgument> = buildList {
-        args?.forEach { element ->
-            add(navArgument(element.key) {
-                type = NavType.StringType
-            })
+    data class VehicleDetails(
+        val vehicleId: String = ""
+    ) : VehicleCompanionDestination(
+        destination = "vehicleDetails",
+        args = mapOf(
+            Pair(Constants.NavArgs.VEHICLE_ID, vehicleId)
+        )
+    )
+    data object VehicleList : VehicleCompanionDestination("vehicleList")
+//    sealed class Profile(
+//        override val destination: String,
+//        override val args: Map<String, String> = emptyMap()
+//    ) : VehicleCompanionDestination("profile", args) {
+//
+//    }
+//
+//    sealed class Search(override val destination: String) : VehicleCompanionDestination("search", emptyMap()) {
+//        data object ListView : Search("list")
+//        data object Map : Search("map")
+//    }
+
+    val arguments: List<NamedNavArgument> = if (args.isNotEmpty()) {
+        buildList {
+            args.forEach { element ->
+                add(navArgument(element.key) {
+                    type = NavType.StringType
+                })
+            }
         }
-    }
+    } else emptyList()
 
     val route: String
         get() = buildString {
@@ -40,26 +63,6 @@ sealed class VehicleCompanionDestination(
  *
  *  If we have multi module structure each should be kept in it's own module
  */
-sealed class Profile(
-    override val destination: String,
-    override val args: Map<String, String> = emptyMap()
-) : VehicleCompanionDestination("profile") {
-    data class VehicleDetails(
-        val isEditMode: Boolean = false,
-        val vehicleId: String = ""
-    ) : Profile(
-        destination = "vehicleDetails",
-        args = mapOf(
-            Pair(Constants.NavArgs.IS_EDIT_MODE, isEditMode.toString()),
-            Pair(Constants.NavArgs.VEHICLE_ID, vehicleId)
-        )
-    )
-    data object VehicleList : Profile("vehicleList")
-}
 
-sealed class Search(override val destination: String) : VehicleCompanionDestination("search") {
-    data object ListView : Search("list")
-    data object Map : Search("map")
-}
 
 

@@ -7,14 +7,10 @@ import androidx.activity.enableEdgeToEdge
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.Scaffold
-import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.platform.LocalLifecycleOwner
-import androidx.compose.ui.tooling.preview.Preview
 import androidx.lifecycle.Lifecycle
-import androidx.lifecycle.compose.LocalLifecycleOwner
 import androidx.lifecycle.repeatOnLifecycle
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
@@ -24,7 +20,6 @@ import com.example.vehiclecompanion.presentation.features.profile.vehicle.detail
 import com.example.vehiclecompanion.presentation.features.profile.vehicle.list.VehicleListScreen
 import com.example.vehiclecompanion.presentation.navigation.NavigationCommand
 import com.example.vehiclecompanion.presentation.navigation.NavigationManager
-import com.example.vehiclecompanion.presentation.navigation.Profile
 import com.example.vehiclecompanion.presentation.navigation.VehicleCompanionDestination
 import com.example.vehiclecompanion.presentation.ui.components.topbar.VehicleAppTopbar
 import com.example.vehiclecompanion.presentation.ui.theme.VehicleCompanionTheme
@@ -64,15 +59,15 @@ private fun RootComposable(navigationManager: NavigationManager) {
                 .fillMaxSize()
                 .padding(paddingValues),
             navController = navController,
-            startDestination = Profile.VehicleDetails().route
+            startDestination = VehicleCompanionDestination.VehicleDetails(vehicleId = "test").routePath
         ) {
             composable(
-                route = Profile.VehicleDetails().route,
-                arguments = Profile.VehicleDetails().arguments
+                route = VehicleCompanionDestination.VehicleDetails().route,
+                arguments = VehicleCompanionDestination.VehicleDetails().arguments
             ) {
                 VehicleDetailsScreen()
             }
-            composable(route = Profile.VehicleList.route,) {
+            composable(route = VehicleCompanionDestination.VehicleList.route,) {
                 VehicleListScreen()
             }
         }
