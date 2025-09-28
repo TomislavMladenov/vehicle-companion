@@ -10,7 +10,7 @@ sealed class VehicleCompanionDestination(
     open val args: Map<String, String> = emptyMap()
 ) {
     val arguments: List<NamedNavArgument> = buildList {
-        args.forEach { element ->
+        args?.forEach { element ->
             add(navArgument(element.key) {
                 type = NavType.StringType
             })

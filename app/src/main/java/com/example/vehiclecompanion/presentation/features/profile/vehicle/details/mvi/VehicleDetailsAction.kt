@@ -1,14 +1,14 @@
 package com.example.vehiclecompanion.presentation.features.profile.vehicle.details.mvi
 
+import com.example.vehiclecompanion.presentation.ui.model.MenuOption
+
 interface VehicleDetailsAction {
 
-    data class OnNameValueChange(val name: String): VehicleDetailsAction
-
-    data class OnModelValueChange(val model: String): VehicleDetailsAction
-
-    data class OnYearValueChange(val year: String): VehicleDetailsAction
-
+    data class OnSelectYear(val yearOption: MenuOption): VehicleDetailsAction
+    data class OnSelectBrand(val brandOption: MenuOption): VehicleDetailsAction
+    data class OnSelectModel(val modelOption: MenuOption): VehicleDetailsAction
+    data class OnSelectFuelType(val typeOption: MenuOption): VehicleDetailsAction
     data class OnVINValueChange(val vin: String): VehicleDetailsAction
-
-    data class OnSelectFuelType(val type: String): VehicleDetailsAction
 }
+
+

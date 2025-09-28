@@ -8,7 +8,12 @@ import androidx.compose.material3.dynamicDarkColorScheme
 import androidx.compose.material3.dynamicLightColorScheme
 import androidx.compose.material3.lightColorScheme
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.CompositionLocalProvider
+import androidx.compose.runtime.SideEffect
+import androidx.compose.runtime.staticCompositionLocalOf
+import androidx.compose.ui.platform.LocalConfiguration
 import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.platform.LocalWindowInfo
 
 private val DarkColorScheme = darkColorScheme(
     primary = Purple80,
@@ -33,6 +38,16 @@ private val LightColorScheme = lightColorScheme(
 )
 
 @Composable
+fun ProvideDimens(
+    dimensions: Dimensions,
+    content: @Composable () -> Unit
+) {
+    CompositionLocalProvider(LocalAppDimens provides dimensions, content = content)
+}
+
+private val LocalAppDimens = staticCompositionLocalOf { sw360Dimensions }
+
+@Composable
 fun VehicleCompanionTheme(
     darkTheme: Boolean = isSystemInDarkTheme(),
     // Dynamic color is available on Android 12+
@@ -49,9 +64,29 @@ fun VehicleCompanionTheme(
         else -> LightColorScheme
     }
 
-    MaterialTheme(
-        colorScheme = colorScheme,
-        typography = Typography,
-        content = content
-    )
+    val configuration = LocalWindowInfo.current
+    val dimensions = when {
+        configuration.containerSize.width <= 360 -> smallDimensions
+        configuration.containerSize.width in 361..600 -> sw360Dimensions
+        configuration.containerSize.width in 601..940 -> sw600Dimensions
+        configuration.containerSize.width > 940 -> sw940Dimensions
+        else -> smallDimensions
+    }
+    ProvideDimens(dimensions = dimensions) {
+        MaterialTheme(
+            colorScheme = colorScheme,
+            typography = Typography,
+            content = content
+        )
+    }
 }
+
+object VCTheme {
+    val dimens: Dimensions
+        @Composable
+        get() = LocalAppDimens.current
+}
+
+val Dimens: Dimensions
+    @Composable
+    get() = VCTheme.dimens

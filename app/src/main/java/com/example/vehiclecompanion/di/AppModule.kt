@@ -1,5 +1,7 @@
 package com.example.vehiclecompanion.di
 
+import com.example.vehiclecompanion.presentation.navigation.NavigationManager
+import com.example.vehiclecompanion.presentation.navigation.NavigationManagerImpl
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -9,6 +11,7 @@ import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.SupervisorJob
 import javax.inject.Qualifier
+import javax.inject.Singleton
 
 @Retention(AnnotationRetention.RUNTIME)
 @Qualifier
@@ -34,4 +37,7 @@ class AppModule {
     fun providesDefaultDispatcher(): CoroutineDispatcher = Dispatchers.Default
 
 
+    @Singleton
+    @Provides
+    fun provideNavigationManager(): NavigationManager = NavigationManagerImpl()
 }

@@ -1,3 +1,5 @@
 <resources>
     <string name="app_name">Vehicle Companion</string>
+
+    <string name="tv_fuel_type_label">Fuel type</string>
 </resources>

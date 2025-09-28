@@ -64,7 +64,7 @@ private fun RootComposable(navigationManager: NavigationManager) {
                 .fillMaxSize()
                 .padding(paddingValues),
             navController = navController,
-            startDestination = Profile.VehicleList.route
+            startDestination = Profile.VehicleDetails().route
         ) {
             composable(
                 route = Profile.VehicleDetails().route,
