@@ -7,6 +7,7 @@ import com.example.vehiclecompanion.core.vehicle.datasource.VehicleOfflineDataSo
 import com.example.vehiclecompanion.datasource.database.vehicles.dao.VehicleDao
 import com.example.vehiclecompanion.datasource.database.vehicles.model.toDomain
 import com.example.vehiclecompanion.datasource.database.vehicles.model.toEntity
+import com.example.vehiclecompanion.datasource.database.vehicles.model.update
 import kotlinx.coroutines.flow.distinctUntilChanged
 import kotlinx.coroutines.flow.map
 
@@ -14,8 +15,12 @@ class VehicleOfflineRoomDataSource(
     private val dao: VehicleDao
 ) : VehicleOfflineDataSource {
 
-    override suspend fun insert(vehicle: Vehicle) =
-        safeSuspendCall { dao.insertVehicle(vehicle.toEntity()) }
+    override suspend fun save(vehicle: Vehicle) =
+        safeSuspendCall {
+            dao.getVehicleByUuid(vehicle.uuid)?.let { entity ->
+                dao.updateVehicle(entity.update(vehicle)).toLong()
+            } ?:  dao.insertVehicle(vehicle.toEntity())
+        }
 
     override fun getAll() = safeCall {
         dao.getAllVehicles().distinctUntilChanged().map { list ->
@@ -29,5 +34,4 @@ class VehicleOfflineRoomDataSource(
 
     override suspend fun delete(vehicle: Vehicle) =
         safeSuspendCall { dao.delete(vehicle.toEntity()) }
-
 }

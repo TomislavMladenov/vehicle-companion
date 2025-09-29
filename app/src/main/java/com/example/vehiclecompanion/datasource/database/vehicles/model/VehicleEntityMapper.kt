@@ -26,3 +26,14 @@ fun VehicleEntity.toDomain() = Vehicle(
     vin = vin,
     photo = photo
 )
+
+fun VehicleEntity.update(vehicle: Vehicle) = VehicleEntity(
+    id = id,
+    uuid = uuid,
+    year = vehicle.year,
+    brand = vehicle.brand.name,
+    model = vehicle.brand.model,
+    fuelType = vehicle.fuelType.name,
+    vin = vehicle.vin,
+    photo = vehicle.photo
+)

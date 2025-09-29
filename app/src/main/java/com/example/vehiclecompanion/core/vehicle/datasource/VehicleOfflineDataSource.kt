@@ -5,7 +5,7 @@ import kotlinx.coroutines.flow.Flow
 
 interface VehicleOfflineDataSource {
 
-    suspend fun insert(vehicle: Vehicle): Result<Long>
+    suspend fun save(vehicle: Vehicle): Result<Long>
 
     suspend fun delete(vehicle: Vehicle): Result<Int>
 

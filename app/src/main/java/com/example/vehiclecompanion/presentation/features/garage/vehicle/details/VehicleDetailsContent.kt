@@ -14,7 +14,7 @@ import androidx.compose.ui.res.stringResource
 import com.example.vehiclecompanion.R
 import com.example.vehiclecompanion.presentation.features.garage.vehicle.details.mvi.VehicleDetailsAction
 import com.example.vehiclecompanion.presentation.features.garage.vehicle.details.mvi.VehicleDetailsState
-import com.example.vehiclecompanion.presentation.ui.components.atoms.button.RoundedButton
+import com.example.vehiclecompanion.presentation.ui.components.atoms.button.VCRoundedButton
 import com.example.vehiclecompanion.presentation.ui.components.atoms.spacer.DefaultSpacing
 import com.example.vehiclecompanion.presentation.ui.components.atoms.spacer.FillAvailableHeightSpacer
 import com.example.vehiclecompanion.presentation.ui.components.atoms.text.VCScreenTitle
@@ -89,7 +89,7 @@ private fun ColumnScope.SaveButtonView(
         verticalAlignment = Alignment.CenterVertically,
         horizontalArrangement = Arrangement.Center
     ) {
-        RoundedButton(
+        VCRoundedButton(
             text = textResource(ResourceString(R.string.tv_save)),
             onClick = onClick,
             enabled = enabled

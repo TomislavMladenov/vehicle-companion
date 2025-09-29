@@ -5,6 +5,7 @@ import androidx.room.Delete
 import androidx.room.Insert
 import androidx.room.OnConflictStrategy
 import androidx.room.Query
+import androidx.room.Update
 import com.example.vehiclecompanion.datasource.database.vehicles.model.VehicleEntity
 import kotlinx.coroutines.flow.Flow
 
@@ -13,6 +14,9 @@ interface VehicleDao {
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     suspend fun insertVehicle(vehicle: VehicleEntity): Long
+
+    @Update
+    suspend fun updateVehicle(vehicle: VehicleEntity): Int
 
     @Query("SELECT * FROM vehicle")
     fun getAllVehicles(): Flow<List<VehicleEntity>>

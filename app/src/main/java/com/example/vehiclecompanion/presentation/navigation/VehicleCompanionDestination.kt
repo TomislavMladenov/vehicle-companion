@@ -14,21 +14,13 @@ sealed class VehicleCompanionDestination(
     ) : VehicleCompanionDestination(
         destination = "vehicleDetails",
         args = mapOf(
-            Pair(Constants.NavArgs.VEHICLE_ID, vehicleId)
+            Pair(Constants.NavArgs.VEHICLE_UUID, vehicleId)
         )
     )
     data object VehicleList : VehicleCompanionDestination("vehicleList")
-//    sealed class Profile(
-//        override val destination: String,
-//        override val args: Map<String, String> = emptyMap()
-//    ) : VehicleCompanionDestination("profile", args) {
-//
-//    }
-//
-//    sealed class Search(override val destination: String) : VehicleCompanionDestination("search", emptyMap()) {
-//        data object ListView : Search("list")
-//        data object Map : Search("map")
-//    }
+
+    data object ListView : VehicleCompanionDestination("searchListView")
+    data object MapView : VehicleCompanionDestination("searchMapView")
 
     val arguments: List<NamedNavArgument> = if (args.isNotEmpty()) {
         buildList {
@@ -56,13 +48,3 @@ sealed class VehicleCompanionDestination(
             }
         }
 }
-
-/**
- *  For demonstration will be kept in the same file but ideally we would like to separate them since each
- *  would be a navigation graph that will have it's own sub destinations and manage history / state
- *
- *  If we have multi module structure each should be kept in it's own module
- */
-
-
-

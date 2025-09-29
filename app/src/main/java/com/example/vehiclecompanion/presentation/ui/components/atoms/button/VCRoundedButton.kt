@@ -12,10 +12,10 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
 import com.example.vehiclecompanion.presentation.ui.theme.Dimens
-import com.example.vehiclecompanion.presentation.ui.theme.FillButtonColor
+import com.example.vehiclecompanion.presentation.ui.theme.VCDeepBlue
 
 @Composable
-fun RoundedButton(
+fun VCRoundedButton(
     text: String,
     modifier: Modifier = Modifier,
     enabled: Boolean = true,
@@ -28,7 +28,7 @@ fun RoundedButton(
             .height(48.dp)
             .padding(horizontal = Dimens.space_0_5),
         colors = ButtonDefaults.buttonColors(
-            containerColor = FillButtonColor
+            containerColor = VCDeepBlue
         ),
         enabled = enabled
     ) {

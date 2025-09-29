@@ -7,4 +7,6 @@ data class Vehicle(
     val vin: String,
     val fuelType: FuelType,
     val photo: String
-)
+) {
+    val name: String = "${brand.name} ${brand.model}"
+}

@@ -1,7 +1,9 @@
 package com.example.vehiclecompanion.presentation.features.garage.vehicle.details
 
+import android.view.Display
 import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.viewModelScope
+import com.example.vehiclecompanion.core.model.FuelType
 import com.example.vehiclecompanion.core.model.Vehicle
 import com.example.vehiclecompanion.core.model.VehicleBrand
 import com.example.vehiclecompanion.core.util.Constants
@@ -15,6 +17,8 @@ import com.example.vehiclecompanion.presentation.navigation.VehicleCompanionDest
 import com.example.vehiclecompanion.presentation.ui.model.MenuOption
 import com.example.vehiclecompanion.presentation.ui.model.SelectWrapper
 import com.example.vehiclecompanion.presentation.ui.model.options.BrandMenuOption
+import com.example.vehiclecompanion.presentation.ui.model.options.FuelTypeMenuOption
+import com.example.vehiclecompanion.presentation.ui.model.options.ModelMenuOptions
 import com.example.vehiclecompanion.presentation.ui.model.options.YearMenuOption
 import com.example.vehiclecompanion.presentation.ui.model.options.buildModelMenuOptions
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -83,7 +87,7 @@ constructor(
             }
         }
         updateState {
-            copy(model = state.value.model.copy(options = updatedListOptions),)
+            copy(model = state.value.model.copy(options = updatedListOptions))
         }
     }
 
@@ -109,14 +113,20 @@ constructor(
 
     private suspend fun getExistingVehicle(uuid: String) {
         vehicleRepository.getById(uuid)?.let { vehicle ->
-            updateState { copy(
-                year = selectYear(vehicle.year),
-                brand = selectBrand(vehicle.brand)
-            ) }
+            val brandAndModel = preloadBrandAndModel(vehicle.brand)
+            updateState {
+                copy(
+                    year = preloadYear(vehicle.year),
+                    brand = brandAndModel.first,
+                    model = brandAndModel.second,
+                    fuelType = preloadFuelType(vehicle.fuelType),
+                    uuid = uuid
+                )
+            }
         }
     }
 
-    private fun selectYear(year: String): SelectWrapper<YearMenuOption> {
+    private fun preloadYear(year: String): SelectWrapper<YearMenuOption> {
         val updatedYearOptions = state.value.year.options.map {
             if (it.value == year) {
                 it.copy(checked = true)
@@ -127,15 +137,39 @@ constructor(
         return state.value.year.copy(options = updatedYearOptions)
     }
 
-    private fun selectBrand(brand: VehicleBrand): SelectWrapper<BrandMenuOption> {
+    private fun preloadBrandAndModel(brand: VehicleBrand): Pair<SelectWrapper<BrandMenuOption>, SelectWrapper<ModelMenuOptions>> {
+        val models: MutableList<String> = mutableListOf()
         val updatedBrandOptions = state.value.brand.options.map {
             if (it.vehicleBrandOption.name == brand.name) {
+                models.addAll(it.vehicleBrandOption.models)
                 it.copy(checked = true)
             } else {
                 it.copy(checked = false)
             }
         }
-        return state.value.brand.copy(options = updatedBrandOptions)
+
+        val updatedModelOptions = models.buildModelMenuOptions().map {
+            if (it.model == brand.model) {
+                it.copy(checked = true)
+            } else {
+                it.copy(checked = false)
+            }
+        }
+        return Pair(
+            first = state.value.brand.copy(options = updatedBrandOptions),
+            second = state.value.model.copy(options = updatedModelOptions)
+        )
+    }
+
+    private fun preloadFuelType(fuelType: FuelType): SelectWrapper<FuelTypeMenuOption> {
+        val updatedFuelTypeOptions = state.value.fuelType.options.map {
+            if (it.fuelType == fuelType) {
+                it.copy(checked = true)
+            } else {
+                it.copy(checked = false)
+            }
+        }
+        return state.value.fuelType.copy(options = updatedFuelTypeOptions)
     }
 
     @OptIn(ExperimentalUuidApi::class)
@@ -145,8 +179,9 @@ constructor(
         val brand = currentState.brand.selected ?: return null
         val model = currentState.model.selected ?: return null
         val fuelType = currentState.fuelType.selected ?: return null
+        val uuid = currentState.uuid.ifEmpty { random().toString() }
         return Vehicle(
-            uuid = random().toString(),
+            uuid = uuid,
             year = year.value,
             brand = VehicleBrand(
                 name = brand.vehicleBrandOption.name,
@@ -167,6 +202,7 @@ constructor(
             is VehicleDetailsAction.OnVINValueChange -> {
 
             }
+
             is VehicleDetailsAction.OnSave -> save()
         }
     }

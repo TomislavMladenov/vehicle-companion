@@ -18,6 +18,7 @@ data class VehicleDetailsState(
     val brand: SelectWrapper<BrandMenuOption> = SelectWrapper(supportedBrands.buildVehicleBrandOptions()),
     val model: SelectWrapper<ModelMenuOptions> = SelectWrapper(emptyList()),
     val fuelType: SelectWrapper<FuelTypeMenuOption> = SelectWrapper(buildFuelTypeMenuOptions()),
+    val uuid: String = ""
 
 ) {
     val name: Pair<TextResource?, TextResource?>

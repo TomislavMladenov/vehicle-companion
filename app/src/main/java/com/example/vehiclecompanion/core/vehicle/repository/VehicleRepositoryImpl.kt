@@ -12,7 +12,7 @@ class VehicleRepositoryImpl(
 ) : VehicleRepository {
 
     override suspend fun save(vehicle: Vehicle) =
-        vehicleOfflineDataSource.insert(vehicle).unwrap() ?: INVALID_LONG
+        vehicleOfflineDataSource.save(vehicle).unwrap() ?: INVALID_LONG
 
     override suspend fun delete(vehicle: Vehicle) =
         vehicleOfflineDataSource.delete(vehicle).unwrap() ?: INVALID_INT
