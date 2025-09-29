@@ -1,5 +1,8 @@
 package com.example.vehiclecompanion.di
 
+import com.example.vehiclecompanion.core.vehicle.datasource.VehicleOfflineDataSource
+import com.example.vehiclecompanion.core.vehicle.repository.VehicleRepository
+import com.example.vehiclecompanion.core.vehicle.repository.VehicleRepositoryImpl
 import com.example.vehiclecompanion.presentation.navigation.NavigationManager
 import com.example.vehiclecompanion.presentation.navigation.NavigationManagerImpl
 import dagger.Module
@@ -40,4 +43,10 @@ class AppModule {
     @Singleton
     @Provides
     fun provideNavigationManager(): NavigationManager = NavigationManagerImpl()
+
+    @Singleton
+    @Provides
+    fun provideVehicleRepository(
+        vehicleOfflineDataSource: VehicleOfflineDataSource
+    ): VehicleRepository = VehicleRepositoryImpl(vehicleOfflineDataSource)
 }

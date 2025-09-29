@@ -18,18 +18,15 @@ val supportedBrands = listOf(
 )
 
 data class BrandMenuOption(
-    override val titleResId: TextResource,
     override val checked: Boolean = false,
     override val enabled: Boolean = true,
     val vehicleBrandOption: VehicleBrandOption
 ): MenuOption {
     override val uuid: String = random().toString()
+    override val titleResId: TextResource = DynamicString(vehicleBrandOption.name)
 }
 
 fun List<VehicleBrandOption>.buildVehicleBrandOptions() = this.map { brandOption ->
-    BrandMenuOption(
-        titleResId = DynamicString(brandOption.name),
-        vehicleBrandOption = brandOption
-    )
+    BrandMenuOption(vehicleBrandOption = brandOption)
 }
 

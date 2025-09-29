@@ -9,15 +9,12 @@ import kotlin.uuid.ExperimentalUuidApi
 import kotlin.uuid.Uuid.Companion.random
 
 data class ModelMenuOptions(
-    override val titleResId: TextResource,
     override val checked: Boolean = false,
     override val enabled: Boolean = true,
+    val model: String
 ) : MenuOption {
     override val uuid: String = random().toString()
+    override val titleResId: TextResource = DynamicString(model)
 }
 
-fun List<String>.buildModelMenuOptions() = this.map { model ->
-    ModelMenuOptions(
-        titleResId = DynamicString(model)
-    )
-}
+fun List<String>.buildModelMenuOptions() = this.map { model -> ModelMenuOptions(model = model) }

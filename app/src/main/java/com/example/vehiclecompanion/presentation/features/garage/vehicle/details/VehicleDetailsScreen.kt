@@ -1,4 +1,4 @@
-package com.example.vehiclecompanion.presentation.features.profile.vehicle.details
+package com.example.vehiclecompanion.presentation.features.garage.vehicle.details
 
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue

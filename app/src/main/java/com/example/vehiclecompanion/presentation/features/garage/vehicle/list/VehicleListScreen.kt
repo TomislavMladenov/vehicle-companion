@@ -1,4 +1,4 @@
-package com.example.vehiclecompanion.presentation.features.profile.vehicle.list
+package com.example.vehiclecompanion.presentation.features.garage.vehicle.list
 
 import androidx.compose.runtime.Composable
 

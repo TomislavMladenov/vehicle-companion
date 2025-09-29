@@ -16,8 +16,8 @@ import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
-import com.example.vehiclecompanion.presentation.features.profile.vehicle.details.VehicleDetailsScreen
-import com.example.vehiclecompanion.presentation.features.profile.vehicle.list.VehicleListScreen
+import com.example.vehiclecompanion.presentation.features.garage.vehicle.details.VehicleDetailsScreen
+import com.example.vehiclecompanion.presentation.features.garage.vehicle.list.VehicleListScreen
 import com.example.vehiclecompanion.presentation.navigation.NavigationCommand
 import com.example.vehiclecompanion.presentation.navigation.NavigationManager
 import com.example.vehiclecompanion.presentation.navigation.VehicleCompanionDestination

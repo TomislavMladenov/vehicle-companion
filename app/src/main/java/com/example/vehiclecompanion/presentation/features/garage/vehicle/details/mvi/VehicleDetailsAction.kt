@@ -1,4 +1,4 @@
-package com.example.vehiclecompanion.presentation.features.profile.vehicle.details.mvi
+package com.example.vehiclecompanion.presentation.features.garage.vehicle.details.mvi
 
 import com.example.vehiclecompanion.presentation.ui.model.MenuOption
 
